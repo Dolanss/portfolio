@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabriel Oliveira - Backend Java Portfolio</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      :root {
+        color-scheme: dark;
+        --bg: #081013;
+        --panel: #10191d;
+        --panel-strong: #142327;
+        --line: #284146;
+        --text: #eef7f5;
+        --muted: #a8bcba;
+        --soft: #d8e6e4;
+        --teal: #4ed8c3;
+        --blue: #79addc;
+        --amber: #f0b35c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.45;
+      }
+
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 42px;
+        line-height: 0.96;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 20px;
+        line-height: 1.15;
+      }
+
+      h3 {
+        font-size: 12px;
+        line-height: 1.25;
+      }
+
+      p,
+      li,
+      .small {
+        color: var(--muted);
+        font-size: 9.5px;
+      }
+
+      .page {
+        position: relative;
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden;
+        padding: 13mm 14mm;
+        page-break-after: always;
+        background:
+          radial-gradient(circle at 82% 12%, rgba(78, 216, 195, 0.14), transparent 52mm),
+          radial-gradient(circle at 12% 84%, rgba(121, 173, 220, 0.12), transparent 60mm),
+          linear-gradient(rgba(78, 216, 195, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(78, 216, 195, 0.035) 1px, transparent 1px),
+          linear-gradient(180deg, #081013 0%, #0e171a 100%);
+        background-size: auto, auto, 18mm 18mm, 18mm 18mm, auto;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      .page::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.16;
+        background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.42) 1px, transparent 0);
+        background-size: 5mm 5mm;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10mm;
+        align-items: start;
+        margin-bottom: 8mm;
+      }
+
+      .eyebrow,
+      .section-label,
+      .card-label {
+        color: var(--teal);
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .role {
+        margin-top: 2mm;
+        color: var(--amber);
+        font-size: 12.5px;
+        font-weight: 700;
+      }
+
+      .summary {
+        margin-top: 4mm;
+        max-width: 126mm;
+        color: var(--soft);
+        font-size: 10.5px;
+      }
+
+      .contact-box {
+        width: 58mm;
+        border: 1px solid rgba(78, 216, 195, 0.24);
+        border-radius: 3mm;
+        background: rgba(12, 21, 24, 0.84);
+        padding: 4mm;
+      }
+
+      .contact-box a,
+      .contact-box span {
+        display: block;
+        overflow-wrap: anywhere;
+        color: var(--soft);
+        font-size: 8.5px;
+      }
+
+      .contact-box strong {
+        display: block;
+        margin-bottom: 1.2mm;
+        color: var(--text);
+        font-size: 9px;
+      }
+
+      .badge-row,
+      .stack-row,
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5mm;
+      }
+
+      .badge,
+      .tag,
+      .stack-pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 6mm;
+        border: 1px solid rgba(121, 173, 220, 0.22);
+        border-radius: 20mm;
+        background: rgba(121, 173, 220, 0.08);
+        color: #d5e8f6;
+        padding: 1.4mm 2.2mm;
+        font-size: 8px;
+        font-weight: 650;
+      }
+
+      .badge-row {
+        margin-top: 5mm;
+      }
+
+      .section {
+        margin-top: 7mm;
+      }
+
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 5mm;
+        align-items: end;
+        margin-bottom: 3mm;
+        padding-bottom: 2mm;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+      }
+
+      .section-heading p {
+        max-width: 78mm;
+        text-align: right;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 3mm;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 3mm;
+      }
+
+      .card {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 3mm;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
+        padding: 3.2mm;
+      }
+
+      .card h3 {
+        margin-bottom: 1.8mm;
+        color: var(--text);
+      }
+
+      .metric-card {
+        min-height: 18mm;
+        border-left: 1.4mm solid rgba(240, 179, 92, 0.68);
+      }
+
+      .stack-card {
+        min-height: 28mm;
+      }
+
+      .stack-card h3 {
+        color: var(--teal);
+      }
+
+      .project {
+        display: grid;
+        gap: 2.2mm;
+        min-height: 81mm;
+      }
+
+      .project-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 3mm;
+      }
+
+      .project h3 {
+        font-size: 13px;
+      }
+
+      .detail {
+        display: grid;
+        gap: 0.8mm;
+      }
+
+      .detail strong {
+        color: #edf8f6;
+        font-size: 8.5px;
+      }
+
+      .detail span {
+        color: var(--muted);
+        font-size: 8.7px;
+      }
+
+      .demonstrates {
+        border: 1px solid rgba(78, 216, 195, 0.26);
+        border-radius: 2.5mm;
+        background: rgba(78, 216, 195, 0.065);
+        padding: 2.4mm;
+      }
+
+      .demonstrates strong {
+        color: var(--teal);
+      }
+
+      .list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2.2mm;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .list li {
+        position: relative;
+        min-height: 10mm;
+        border-radius: 2.5mm;
+        border-left: 1mm solid rgba(78, 216, 195, 0.58);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 2mm 2mm 2mm 5mm;
+        color: #dce9e7;
+      }
+
+      .diagram {
+        border: 1px solid rgba(78, 216, 195, 0.16);
+        border-radius: 2.5mm;
+        background:
+          linear-gradient(rgba(78, 216, 195, 0.055) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(78, 216, 195, 0.045) 1px, transparent 1px),
+          rgba(7, 13, 15, 0.7);
+        background-size: 8mm 8mm;
+      }
+
+      .diagram svg {
+        display: block;
+        width: 100%;
+        height: 27mm;
+      }
+
+      .diagram rect {
+        fill: rgba(12, 26, 29, 0.96);
+        stroke: rgba(121, 173, 220, 0.42);
+      }
+
+      .diagram path {
+        stroke: rgba(78, 216, 195, 0.72);
+        stroke-width: 1.4;
+        fill: none;
+      }
+
+      .diagram text {
+        fill: #e2f2ef;
+        font-size: 8px;
+        font-weight: 750;
+      }
+
+      .oss-flow {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.2mm;
+        margin-top: 2mm;
+      }
+
+      .oss-flow span {
+        border: 1px solid rgba(121, 173, 220, 0.2);
+        border-radius: 2mm;
+        background: rgba(8, 14, 16, 0.78);
+        color: #d8e8e5;
+        padding: 1.4mm 1mm;
+        text-align: center;
+        font-size: 7.4px;
+        font-weight: 750;
+      }
+
+      .footer-note {
+        position: absolute;
+        left: 14mm;
+        right: 14mm;
+        bottom: 8mm;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        gap: 4mm;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 3mm;
+        color: #8fa3a1;
+        font-size: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="page">
+      <div class="content">
+        <header class="header">
+          <div>
+            <p class="eyebrow">Backend Java · ERP · Fiscal/Financeiro · Sistemas Distribuídos</p>
+            <h1>Gabriel Oliveira</h1>
+            <p class="role">Backend Developer | Java | Spring Boot | Distributed Systems</p>
+            <p class="summary">
+              Backend Developer com foco em Java/Spring Boot para sistemas corporativos, rotinas ERP/fiscais,
+              plataformas financeiras, APIs REST, mensageria, integrações SEFAZ/SOAP, processamento assíncrono
+              e serviços cloud-native.
+            </p>
+            <div class="badge-row">
+              <span class="badge">Java</span>
+              <span class="badge">Spring Boot</span>
+              <span class="badge">REST APIs</span>
+              <span class="badge">RabbitMQ/JMS</span>
+              <span class="badge">ERP/Fiscal</span>
+              <span class="badge">GCP/Docker</span>
+            </div>
+          </div>
+          <address class="contact-box">
+            <strong>Contato</strong>
+            <a href="https://github.com/Dolanss">github.com/Dolanss</a>
+            <a href="https://linkedin.com/in/gabrielfsdoliveira">linkedin.com/in/gabrielfsdoliveira</a>
+            <a href="mailto:gabriel.springkernel@gmail.com">gabriel.springkernel@gmail.com</a>
+            <a href="tel:+5543991957444">(43) 99195-7444</a>
+          </address>
+        </header>
+
+        <section class="section">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Professional Summary</p>
+              <h2>Backend para sistemas que precisam integrar, processar e operar bem.</h2>
+            </div>
+            <p>
+              Posicionamento para times Java/Spring em ERP, fiscal/contábil, fintechs e produtos B2B.
+            </p>
+          </div>
+          <div class="grid-3">
+            <article class="card metric-card">
+              <h3>Fiscal operations</h3>
+              <p>Processamento de milhares de registros fiscais/dia, XMLs e documentos fiscais eletrônicos.</p>
+            </article>
+            <article class="card metric-card">
+              <h3>Financial events</h3>
+              <p>Fluxos assíncronos para eventos financeiros, billing e etapas de faturamento.</p>
+            </article>
+            <article class="card metric-card">
+              <h3>Operational work</h3>
+              <p>Automações para reduzir trabalho manual em rotinas operacionais e integrações corporativas.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Technical Stack</p>
+              <h2>Stack alinhada a Java/Spring, ERP, fiscal e sistemas distribuídos.</h2>
+            </div>
+          </div>
+          <div class="grid-2">
+            <article class="card stack-card">
+              <h3>Backend</h3>
+              <div class="stack-row">
+                <span class="stack-pill">Java</span><span class="stack-pill">Kotlin</span>
+                <span class="stack-pill">Spring Boot</span><span class="stack-pill">Spring Security</span>
+                <span class="stack-pill">REST APIs</span><span class="stack-pill">Microservices</span>
+              </div>
+            </article>
+            <article class="card stack-card">
+              <h3>Data</h3>
+              <div class="stack-row">
+                <span class="stack-pill">PostgreSQL</span><span class="stack-pill">SQL Server</span>
+                <span class="stack-pill">MongoDB</span><span class="stack-pill">Redis</span>
+                <span class="stack-pill">JPA</span><span class="stack-pill">Hibernate</span>
+              </div>
+            </article>
+            <article class="card stack-card">
+              <h3>Messaging / Integration</h3>
+              <div class="stack-row">
+                <span class="stack-pill">RabbitMQ</span><span class="stack-pill">JMS</span>
+                <span class="stack-pill">SOAP</span><span class="stack-pill">SEFAZ</span>
+                <span class="stack-pill">SPED/EFD</span><span class="stack-pill">Event-driven</span>
+              </div>
+            </article>
+            <article class="card stack-card">
+              <h3>Cloud / DevOps / Practices</h3>
+              <div class="stack-row">
+                <span class="stack-pill">GCP</span><span class="stack-pill">Docker</span>
+                <span class="stack-pill">Kubernetes</span><span class="stack-pill">CI/CD</span>
+                <span class="stack-pill">Grafana</span><span class="stack-pill">Prometheus</span>
+                <span class="stack-pill">Clean Architecture</span><span class="stack-pill">Testing</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Engineering Diagrams</p>
+              <h2>Fluxos técnicos em formato resumido.</h2>
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="diagram">
+              <svg viewBox="0 0 250 95" aria-hidden="true">
+                <path d="M58 48 H95 M153 48 H190" />
+                <rect x="15" y="30" width="42" height="35" rx="6" /><text x="36" y="51" text-anchor="middle">API</text>
+                <rect x="96" y="30" width="58" height="35" rx="6" /><text x="125" y="51" text-anchor="middle">MQ</text>
+                <rect x="191" y="30" width="44" height="35" rx="6" /><text x="213" y="51" text-anchor="middle">Worker</text>
+              </svg>
+            </div>
+            <div class="diagram">
+              <svg viewBox="0 0 250 95" aria-hidden="true">
+                <path d="M62 48 H86 M132 48 H156 M202 48 H222" />
+                <rect x="12" y="30" width="50" height="35" rx="6" /><text x="37" y="51" text-anchor="middle">XML</text>
+                <rect x="87" y="30" width="46" height="35" rx="6" /><text x="110" y="51" text-anchor="middle">Parser</text>
+                <rect x="157" y="30" width="46" height="35" rx="6" /><text x="180" y="51" text-anchor="middle">Valid</text>
+                <rect x="223" y="30" width="24" height="35" rx="6" /><text x="235" y="51" text-anchor="middle">ERP</text>
+              </svg>
+            </div>
+            <div class="diagram">
+              <svg viewBox="0 0 250 95" aria-hidden="true">
+                <path d="M72 48 H96 M158 48 H184" />
+                <rect x="18" y="30" width="54" height="35" rx="6" /><text x="45" y="51" text-anchor="middle">BFF</text>
+                <rect x="97" y="30" width="62" height="35" rx="6" /><text x="128" y="51" text-anchor="middle">Anon</text>
+                <rect x="185" y="30" width="48" height="35" rx="6" /><text x="209" y="51" text-anchor="middle">Client</text>
+              </svg>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="footer-note">
+        <span>Gabriel Oliveira · Backend Java/Spring Boot</span>
+        <span>Page 1/3</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="content">
+        <section>
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Technical Projects</p>
+              <h2>Projetos que demonstram backend além do CRUD.</h2>
+            </div>
+          </div>
+          <div class="grid-2">
+            <article class="card project">
+              <div class="project-header"><h3>K-Anonymization BFF</h3><span class="card-label">Secure API exposure</span></div>
+              <p>BFF em Java/Spring Boot para expor dados analíticos com regra de k-anonymization antes da resposta da API.</p>
+              <div class="detail"><strong>Problema técnico</strong><span>APIs analíticas podem expor dados sensíveis em recortes pequenos ou identificáveis.</span></div>
+              <div class="detail"><strong>Solução aplicada</strong><span>Camada BFF para agregar respostas, aplicar anonimização e controlar o formato exposto ao cliente.</span></div>
+              <div class="detail"><strong>Stack</strong><span>Java · Spring Boot · REST APIs · BFF · Data Privacy</span></div>
+              <div class="demonstrates"><strong>What this demonstrates</strong><br /><span>Contrato REST, separação de camadas e exposição segura de dados.</span></div>
+              <div class="tags"><span class="tag">LGPD</span><span class="tag">API Design</span><span class="tag">BFF</span></div>
+            </article>
+
+            <article class="card project">
+              <div class="project-header"><h3>EFD Parser</h3><span class="card-label">Fiscal pipeline</span></div>
+              <p>Parser para arquivos fiscais EFD, com extração estruturada e normalização de registros tributários brasileiros.</p>
+              <div class="detail"><strong>Problema técnico</strong><span>Arquivos EFD/SPED têm layout rígido, muitos registros e exigem leitura consistente.</span></div>
+              <div class="detail"><strong>Solução aplicada</strong><span>Parser para transformar linhas fiscais em dados estruturados, normalizados e prontos para validação.</span></div>
+              <div class="detail"><strong>Stack</strong><span>Java · File Parsing · Fiscal Domain · Data Normalization · ERP</span></div>
+              <div class="demonstrates"><strong>What this demonstrates</strong><br /><span>Leitura de layout fiscal, arquivos grandes e integração ERP/fiscal.</span></div>
+              <div class="tags"><span class="tag">EFD</span><span class="tag">SPED</span><span class="tag">Fiscal</span></div>
+            </article>
+
+            <article class="card project">
+              <div class="project-header"><h3>Event-driven Billing</h3><span class="card-label">Async billing</span></div>
+              <p>Arquitetura de billing orientada a eventos para transações financeiras e etapas de faturamento assíncronas.</p>
+              <div class="detail"><strong>Problema técnico</strong><span>Fluxos de billing não devem depender de uma cadeia síncrona longa para concluir cada etapa.</span></div>
+              <div class="detail"><strong>Solução aplicada</strong><span>Eventos e mensageria para desacoplar cobrança, processamento financeiro e emissão de registros.</span></div>
+              <div class="detail"><strong>Stack</strong><span>Java · Spring Boot · RabbitMQ · Messaging · Event-driven Architecture</span></div>
+              <div class="demonstrates"><strong>What this demonstrates</strong><br /><span>Filas, processamento assíncrono, idempotência e rastreabilidade financeira.</span></div>
+              <div class="tags"><span class="tag">RabbitMQ</span><span class="tag">Billing</span><span class="tag">Idempotency</span></div>
+            </article>
+
+            <article class="card project">
+              <div class="project-header"><h3>Tax Calculation Engine</h3><span class="card-label">Tax rules</span></div>
+              <p>Motor de cálculo tributário para organizar regras fiscais, cálculos e pontos de extensão por operação.</p>
+              <div class="detail"><strong>Problema técnico</strong><span>Regras fiscais mudam com frequência e ficam difíceis de manter quando cálculos se espalham.</span></div>
+              <div class="detail"><strong>Solução aplicada</strong><span>Organização de regras por domínio e pontos de extensão para cálculos tributários previsíveis.</span></div>
+              <div class="detail"><strong>Stack</strong><span>Java · Spring Boot · Domain Modeling · Business Rules · Clean Architecture</span></div>
+              <div class="demonstrates"><strong>What this demonstrates</strong><br /><span>Modelagem de domínio, encapsulamento de regras e manutenção fiscal.</span></div>
+              <div class="tags"><span class="tag">Fiscal</span><span class="tag">Rules Engine</span><span class="tag">Java</span></div>
+            </article>
+          </div>
+        </section>
+      </div>
+      <div class="footer-note">
+        <span>Technical projects · ERP, fiscal, financial systems</span>
+        <span>Page 2/3</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="content">
+        <section>
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Engineering and Operations</p>
+              <h2>What I bring to backend teams</h2>
+            </div>
+          </div>
+          <ul class="list">
+            <li>Java/Spring Boot para sistemas corporativos.</li>
+            <li>Domínio fiscal/financeiro aplicado a software.</li>
+            <li>APIs REST, SQL e persistência com JPA/Hibernate.</li>
+            <li>Mensageria com RabbitMQ/JMS.</li>
+            <li>Redis para cache e otimização de leitura.</li>
+            <li>Processamento assíncrono e integração corporativa.</li>
+            <li>Docker, GCP, logs, métricas e observabilidade.</li>
+            <li>Leitura de código em projetos open source Java.</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Production Concerns</p>
+              <h2>Preocupações práticas de backend em produção.</h2>
+            </div>
+          </div>
+          <div class="grid-2">
+            <article class="card"><h3>Retry handling</h3><p>Retries com limite e contexto, sem esconder falhas permanentes.</p></article>
+            <article class="card"><h3>Idempotency</h3><p>Proteção contra duplicidade em eventos, cobranças e integrações.</p></article>
+            <article class="card"><h3>Logging and monitoring</h3><p>Logs, métricas e sinais para rastrear chamadas, filas, jobs e erros.</p></article>
+            <article class="card"><h3>Data consistency</h3><p>Cuidado com transações, estados intermediários e reprocessamento seguro.</p></article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Additional Project</p>
+              <h2>Crypto Tax</h2>
+            </div>
+          </div>
+          <article class="card">
+            <p>Aplicação para cálculo tributário de criptoativos e organização de lógica de apuração financeira.</p>
+            <div class="grid-2" style="margin-top: 3mm">
+              <div class="detail"><strong>Problema técnico</strong><span>Operações com criptoativos precisam ser agrupadas e interpretadas antes do relatório fiscal.</span></div>
+              <div class="detail"><strong>Solução aplicada</strong><span>Estrutura para calcular valores tributários e organizar dados de operações em apuração financeira.</span></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Open Source</p>
+              <h2>Java ecosystem study/contribution forks</h2>
+            </div>
+            <p>Language intentionally conservative: proposed improvements, test reliability and integration behavior.</p>
+          </div>
+          <div class="grid-2">
+            <article class="card">
+              <h3>Resilience4j study/contribution fork</h3>
+              <p>Open source study and contribution work around resilience patterns and Spring Boot tests in the Java ecosystem.</p>
+              <div class="oss-flow"><span>Fork</span><span>Study</span><span>Proposal</span><span>Improvement</span></div>
+              <div class="tags" style="margin-top: 2mm"><span class="tag">Resilience4j</span><span class="tag">Test reliability</span><span class="tag">Spring Boot</span></div>
+            </article>
+            <article class="card">
+              <h3>Apache Camel Spring Boot contribution fork</h3>
+              <p>Fork with proposed improvements in Apache Camel Spring Boot, focused on test reliability and integration behavior.</p>
+              <div class="oss-flow"><span>Fork</span><span>Study</span><span>Proposal</span><span>Improvement</span></div>
+              <div class="tags" style="margin-top: 2mm"><span class="tag">Apache Camel</span><span class="tag">Integration behavior</span><span class="tag">Testing</span></div>
+            </article>
+          </div>
+        </section>
+      </div>
+      <div class="footer-note">
+        <span>github.com/Dolanss · linkedin.com/in/gabrielfsdoliveira · (43) 99195-7444</span>
+        <span>Page 3/3</span>
+      </div>
+    </section>
+  </body>
+</html>
